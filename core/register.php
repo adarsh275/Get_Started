@@ -26,11 +26,29 @@ else{
 $Password=$_POST["pass"];
 $cpass=$_POST["Pass"];
 if ($Password==""){
-    echo "$Password<br>";
+    echo "enter password<br>";
 }
 elseif ($Password!=$cpass){
     echo "Error.... Password does not match<br>";
 }
 else{
+    
+    $file = file_get_contents("../database/user.json");
+    $array_data=json_decode($file,true);
+    $data=array(
+        "name"=>$name,
+        "last name"=>$Name,
+        "email"=>$Email,
+        "password"=>$Password,
+    );
+
+
+
+$array_data[]=$data;
+$encod=json_encode($array_data,true);
+if(file_put_contents("../database/user.json",$encod)){
     echo "Registration Successfull";
+
+}
+
 }
